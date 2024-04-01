@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package lab108.helgesonaj;
+
+import java.util.Scanner;
 
 /**
  *
  * @author ajhel
+ * This class simply accepts input from the user used to start other programs.
  */
 public class Client {
 
@@ -14,7 +13,17 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        String input = "";
+
+        while(!input.equals("quit")){
+            System.out.printf("Please input file directory:   ");
+            input = sc.nextLine();
+            Lab108.treeBuilder(input);
+        }
+
+        sc.close();
+
     }
     
 }
