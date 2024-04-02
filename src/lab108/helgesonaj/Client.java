@@ -19,7 +19,7 @@ public class Client {
         while(!input.equals("quit")){
             System.out.printf("Please input file directory:   ");
             input = sc.nextLine();
-            Lab108.treeBuilder(input);
+            Lab108.startProgram(input);
         }
 
         sc.close();

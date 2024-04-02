@@ -8,19 +8,16 @@ import java.util.Scanner;
  */
 public class Lab108 {
 
-    public static void treeBuilder(String filePath){
+    public static void startProgram(String filePath){
 
         try{
             if(filePath.matches("([a-zA-Z]:(\\\\([\\w\\d\\. _-]{1,})){1,}\\.txt){1,255}")){
                 File inputFile = new File(filePath);
                 Scanner fileScanner = new Scanner(inputFile);
                 while(fileScanner.hasNextLine()){
-                    System.out.println(fileScanner.nextLine());
+                    toPostFix(fileScanner.nextLine());
                 }
                 fileScanner.close();
-            }
-            else{
-                System.out.println("invalid input, genius...");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -30,7 +27,15 @@ public class Lab108 {
     }
 
     public static void toPostFix(String infix){
-        
+        ArrayQueue<String> newInfix= helperMethods.tokenize(infix);
+        ArrayStack<String> opStack = new ArrayStack<>();
+        ArrayQueue<String> postFix = new ArrayQueue<>();
+
+        while(!newInfix.isEmpty()){
+            System.out.print(newInfix.dequeue());
+        }
+        System.out.print("\n");
+
     }
 
 }

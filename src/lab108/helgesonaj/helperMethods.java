@@ -1,5 +1,6 @@
 package lab108.helgesonaj;
 
+
 /**
  * A class for lab 8 that holds any helper methods that surve a 
  * more universal purpose.
@@ -32,6 +33,15 @@ public class helperMethods {
             return true;
         }
         return false;
+    }
+
+    public static ArrayQueue<String> tokenize(String infix){
+        String temp[] = infix.split("[ \\n\\t]+");
+        ArrayQueue<String> tokenInfix = new ArrayQueue<>(temp.length);
+        for (String string : temp) {
+            tokenInfix.enqueue(string);
+        }
+        return tokenInfix;
     }
 
 }
