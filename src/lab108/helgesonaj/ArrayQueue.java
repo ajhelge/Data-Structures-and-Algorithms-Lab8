@@ -71,4 +71,17 @@ public class ArrayQueue<E> implements Queue<E> {
         sz--;
         return answer;
     }
+
+    /** Creates a deep copy of this ArrayQueue for reference */
+    public ArrayQueue<E> copy(){
+        if(isEmpty()){
+            return null;
+        }
+        int size = this.size();
+        ArrayQueue<E> copy = new ArrayQueue<>(size);
+        for(int i = 0 ; i < size; i++){
+            copy.enqueue(data[i]);
+        }
+        return copy;
+    }
 }

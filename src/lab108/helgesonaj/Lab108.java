@@ -17,7 +17,13 @@ public class Lab108 {
                 while(fileScanner.hasNextLine()){
                     String infix = fileScanner.nextLine();
                     ArrayQueue<String> postFix = toPostFix(infix);
-                    printOutput(infix, postFix);
+                    ArrayQueue<String> postFixCopy = null;
+                    if(postFix != null){
+                        postFixCopy = postFix.copy();
+                    }
+                    Double answer = evaluate(postFixCopy);
+                    printOutput(infix, postFix, answer);
+                    
                 }
                 fileScanner.close();
             }
@@ -73,14 +79,39 @@ public class Lab108 {
     }
 
     private static Double evaluate(ArrayQueue<String> postFix){
+        if(postFix == null){
+            return 0.0;
+        }
         ArrayStack<String> numStack = new ArrayStack<>(postFix.size());
-        if(isNumber(postFix.first())){
-            numStack.push(postFix.dequeue());
+        Double answer = 0.0;
+        while(!postFix.isEmpty()){
+            if(isNumber(postFix.first())){
+                numStack.push(postFix.dequeue());
+            }
+            else if(isOperator(postFix.first())){
+                Double operandTwo = Double.parseDouble(numStack.pop());
+                Double operandOne = Double.parseDouble(numStack.pop());
+                if(postFix.first().equals("*")){
+                    answer = operandOne * operandTwo;
+                }
+                else if(postFix.first().equals("/")){
+                    answer = operandOne / operandTwo;
+                }
+                else if(postFix.first().equals("+")){
+                    answer = operandOne + operandTwo;
+                }
+                else if(postFix.first().equals("-")){
+                    answer = operandOne - operandTwo;
+                }
+                numStack.push(answer.toString());
+                postFix.dequeue();
+            }
         }
-        else if(isOperator(postFix.first())){
-            //Double operandOne = (Double) numStack.pop();
-        }
-        return 0;
+        return Double.parseDouble(numStack.pop());
+    }
+
+    private static void postfixToBinaryTree(ArrayQueue<String> postFix){
+        
     }
 
     private static boolean isOperator(String token){
@@ -149,7 +180,7 @@ public class Lab108 {
         return tokenInfix;
     }
 
-    private static void printOutput(String infix, ArrayQueue<String> postFix){
+    private static void printOutput(String infix, ArrayQueue<String> postFix, Double answer){
         if(postFix == null){
             System.out.printf("%-40s %-40s\n", infix, "Invalid Expression");
         }
@@ -158,7 +189,7 @@ public class Lab108 {
             while(!postFix.isEmpty()){
                 postFixString += postFix.dequeue();
             }
-            System.out.printf("%-40s %-40s\n", infix, postFixString);
+            System.out.printf("%-40s %-40s %-10f\n", infix, postFixString, answer);
         }
     }
 
