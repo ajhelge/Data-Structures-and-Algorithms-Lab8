@@ -111,7 +111,34 @@ public class Lab108 {
     }
 
     private static void postfixToBinaryTree(ArrayQueue<String> postFix){
-        
+        ArrayStack<LinkedBinaryTree<String>> treeNodesStack = new ArrayStack<>(postFix.size()); //to store new node to be linked together later
+        ArrayStack<String> numberStack = new ArrayStack<>(postFix.size());
+        //First create individual tree nodes
+        while(!postFix.isEmpty()){
+            if(isNumber(postFix.first())){
+                numberStack.push(postFix.dequeue()); //if number add to number stack
+            }
+            else{
+                LinkedBinaryTree<String> newNode = new LinkedBinaryTree<>();
+                newNode.addRoot(postFix.dequeue()); //operator is always root
+                if(numberStack.top() != null){
+                    newNode.addRight(newNode.root, numberStack.pop());
+                }
+                if(numberStack.top() != null){
+                    newNode.addLeft(newNode.root, numberStack.pop());
+                }
+
+                treeNodesStack.push(newNode);
+            }
+        }
+        // TODO Now attach all tree nodes. Should be a separate method.
+        while(!treeNodesStack.isEmpty()){
+            LinkedBinaryTree<String> root = treeNodesStack.pop();
+            LinkedBinaryTree<String> right = treeNodesStack.pop();
+            LinkedBinaryTree<String> left = treeNodesStack.pop();
+            root.attach(root.root, left, right);
+        }
+
     }
 
     private static boolean isOperator(String token){
