@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  *
  * @author ajhel
- * This class simply accepts input from the user used to start other programs.
+ * This class simply accepts input from the user to start other programs.
  */
 public class Client {
 
@@ -17,7 +17,7 @@ public class Client {
         String input = "";
 
         while(!input.equals("quit")){
-            System.out.printf("Please input file directory:   ");
+            System.out.printf("\n\nPlease input file directory:   ");
             input = sc.nextLine();
             Lab108.startProgram(input);
         }
